@@ -2,97 +2,83 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>สบู่ธรรมชาติ CMU</title>
+  <title>ร้านยางลบ CMU</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
+      background-color: #f5f5f5;
     }
     header {
-      background-color: #a2d5c6;
-      text-align: center;
+      background-color: #6b4c9a;
       padding: 20px;
+      text-align: center;
     }
     header img {
-      width: 120px;
+      height: 80px;
     }
-    header h1 {
-      margin: 10px 0 0;
-      font-size: 28px;
-      color: #2e7d32;
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-top: 30px;
     }
-    .container {
+    .promo {
+      text-align: center;
+      font-size: 1.2em;
+      color: #6b4c9a;
+      margin-bottom: 30px;
+    }
+    .product-grid {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      padding: 30px;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding: 0 20px 40px;
     }
     .product {
-      background-color: #fff;
+      background-color: white;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin: 15px;
-      padding: 20px;
-      width: 280px;
+      width: 250px;
       text-align: center;
+      padding: 20px;
     }
     .product img {
       width: 100%;
-      border-radius: 8px;
+      height: auto;
+      border-radius: 5px;
     }
-    .product h2 {
-      font-size: 20px;
-      margin: 10px 0;
-      color: #4caf50;
-    }
-    .product p {
-      font-size: 16px;
-      margin: 5px 0;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #e0f2f1;
-      font-size: 14px;
+    .price {
+      font-size: 1.1em;
+      color: #333;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo.png" alt="โลโก้สบู่ CMU">
-    <h1>สบู่ธรรมชาติ CMU</h1>
-    <p>เพื่อผิวสะอาด สดชื่น เหมาะกับนักศึกษายุคใหม่</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Chiang_Mai_University_Seal.svg/1200px-Chiang_Mai_University_Seal.svg.png" alt="โลโก้ CMU">
   </header>
 
-  <div class="container">
+  <h1>ร้านยางลบ CMU</h1>
+  <div class="promo">🧽 ลบได้เกลี้ยง เก็บได้ทุกความผิดพลาด ✨ เหมาะสำหรับนักศึกษาทุกคณะ!</div>
+
+  <div class="product-grid">
     <div class="product">
-      <img src="soap1.jpg" alt="สบู่กลิ่นลาเวนเดอร์">
-      <h2>สบู่ลาเวนเดอร์</h2>
-      <p>ราคา: 59 บาท</p>
-      <p>ผ่อนคลายความเครียด พร้อมบำรุงผิวให้เนียนนุ่ม</p>
+      <img src="https://www.janivisoffice.co.th/wp-content/uploads/2021/07/STAEDTLER-526-E20.jpg" alt="ยางลบ Staedtler">
+      <div class="price">ราคา: 25 บาท</div>
     </div>
     <div class="product">
-      <img src="soap2.jpg" alt="สบู่ชาโคล">
-      <h2>สบู่ชาโคล</h2>
-      <p>ราคา: 65 บาท</p>
-      <p>ลดสิวและความมัน เหมาะกับผิวผสม</p>
+      <img src="https://stationerymine.com/wp-content/uploads/2021/10/Pentel-ZEH10.jpg" alt="ยางลบ Pentel">
+      <div class="price">ราคา: 20 บาท</div>
     </div>
     <div class="product">
-      <img src="soap3.jpg" alt="สบู่มะขาม">
-      <h2>สบู่มะขาม</h2>
-      <p>ราคา: 55 บาท</p>
-      <p>ผิวกระจ่างใส ลดจุดด่างดำจากธรรมชาติ</p>
+      <img src="https://www.cwart.net/images/product/6192.jpg" alt="ยางลบ Tombow MONO">
+      <div class="price">ราคา: 30 บาท</div>
     </div>
   </div>
-
-  <footer>
-    &copy; 2025 สบู่ธรรมชาติ CMU | ติดต่อ: soapcmu@example.com
-  </footer>
 
 </body>
 </html>
