@@ -164,142 +164,99 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kanom Baan-Baan Chat</title>
-
-  <!-- สไตล์พื้นฐานของ n8n chat (ปรับปรุงให้เข้าธีมขนม) -->
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-
-  <style>
-    /* ===== พื้นหลังของเว็บโดยรวม ===== */
-    body {
-      background-color: #fff7f2;
-      font-family: "Prompt", sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* ===== ตำแหน่งกล่องแชท ===== */
-    #chat-wrapper {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-    }
-
-    /* ===== ปุ่มเปิดแชท ===== */
-    .chat-toggle-btn {
-      background-color: #f7b787;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      font-size: 26px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .chat-toggle-btn:hover {
-      background-color: #f59e62;
-      transform: scale(1.05);
-    }
-
-    /* ===== กล่องแชทหลัก ===== */
-    #chat-box {
-      display: none;
-      width: 350px;
-      height: 480px;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-    }
-
-    /* ===== แถบหัวกล่อง ===== */
-    .chat-header {
-      background-color: #f7b787;
-      color: white;
-      padding: 10px 15px;
-      font-weight: bold;
-      font-size: 16px;
-      text-align: center;
-      border-top-left-radius: 18px;
-      border-top-right-radius: 18px;
-    }
-
-    /* ===== ส่วนใส่บอท (ปรับปรุงสไตล์ให้เข้าธีมขนม) ===== */
-    .chat-body {
-      height: calc(100% - 40px);
-      background-color: #fff7f2; /* สีพื้นหลังอ่อน */
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      overflow-y: auto;
-    }
-
-    /* ฟองข้อความของบอท */
-    .n8n-chat-message {
-      background-color: #f7b787;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 18px;
-      max-width: 75%;
-      align-self: flex-start;
-      word-wrap: break-word;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-      font-size: 14px;
-    }
-
-    /* ฟองข้อความผู้ใช้ */
-    .n8n-chat-message.user {
-      background-color: #ffe1c6;
-      color: #333;
-      align-self: flex-end;
-      max-width: 75%;
-    }
-
-    /* ===== ปรับแต่ง scrollbar ===== */
-    .chat-body::-webkit-scrollbar {
-      width: 8px;
-    }
-    .chat-body::-webkit-scrollbar-thumb {
-      background-color: #f7b787;
-      border-radius: 4px;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="chat-wrapper">
-    <button class="chat-toggle-btn" onclick="toggleChat()">💬</button>
-    <div id="chat-box">
-      <div class="chat-header">🍰 Kanom Baan-Baan Chatbot</div>
-      <div class="chat-body" id="n8n-chat"></div>
+<!-- วางส่วนนี้ใน <body> ของหน้าเว็บคุณ -->
+<div class="n8n-chat-floating">
+    <div class="chat-header">
+        <img src="โลโก้ร้าน.png" alt="ขนมบ้านๆ โลโก้">
+        <span>Kanom Baan-Baan Chat</span>
     </div>
-  </div>
+    <div id="n8n-chat-floating"></div>
+</div>
 
-  <!-- ===== สคริปต์สำหรับเรียกบอท ===== -->
-  <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+<style>
+/* ===== กล่องแชทลอยมุมขวาล่าง ===== */
+.n8n-chat-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    max-width: 90%;
+    background-color: #fffaf2;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Kanit', sans-serif;
+}
 
-    createChat({
-      webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat', // <-- ใส่ลิงก์บอทของคุณตรงนี้
-      target: '#n8n-chat'
-    });
+/* header ของแชท */
+.n8n-chat-floating .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f4a261;
+    color: white;
+    padding: 8px 10px;
+    cursor: pointer;
+}
 
-    // ฟังก์ชันเปิด/ปิดกล่องแชท
-    function toggleChat() {
-      const chatBox = document.getElementById('chat-box');
-      chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
-    }
-  </script>
+/* โลโก้ */
+.n8n-chat-floating .chat-header img {
+    height: 30px;
+    width: auto;
+    border-radius: 6px;
+}
+
+/* ฟองข้อความบอท */
+.n8n-chat-floating .message.bot {
+    background-color: #f7d1c1;
+    color: #4a2c2a;
+    border-radius: 15px 15px 15px 5px;
+}
+
+/* ฟองข้อความผู้ใช้ */
+.n8n-chat-floating .message.user {
+    background-color: #ffe3b3;
+    color: #4a2c2a;
+    border-radius: 15px 15px 5px 15px;
+}
+
+/* ปุ่มส่งข้อความ */
+.n8n-chat-floating button.send {
+    background-color: #f4a261;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ซ่อน/แสดงแชท */
+.n8n-chat-floating #n8n-chat-floating {
+    display: none;
+    height: 400px; /* ปรับขนาดตามต้องการ */
+}
+.n8n-chat-floating.active #n8n-chat-floating {
+    display: block;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/bundle.js"></script>
+<script>
+// สร้างแชท
+const chatFloating = new N8nChat({
+    element: '#n8n-chat-floating',
+    endpoint: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat' // <-- ใส่ URL ของคุณ
+});
+
+// toggle เปิด/ปิดแชท
+const container = document.querySelector('.n8n-chat-floating');
+const header = container.querySelector('.chat-header');
+header.addEventListener('click', () => {
+    container.classList.toggle('active');
+});
+</script>
 </body>
 </html>
 
