@@ -164,68 +164,81 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<style>
-  /* ตัวกล่องแชทหลัก */
-  .n8n-chat-wrapper {
-    --n8n-chat-bg: #fffaf2;        /* พื้นหลังหลัก */
-    --n8n-chat-border-radius: 20px;
-    --n8n-chat-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-  }
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <style>
+        /* 1. กำหนดตัวแปร CSS หลัก (บาง n8n Chat UI version อาจจะใช้) */
+        :root {
+            --chat--color--primary: #E87A90 !important;
+            --chat--color--secondary: #B58E40 !important;
+            --chat--color--light: #FFF7E6 !important;
+        }
 
-  /* ข้อความผู้ใช้ */
-  .n8n-chat-message.user {
-    background-color: #ffdede;  /* สีชมพูอ่อน */
-    color: #333;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 8px 12px;
-  }
+        /* 2. สไตล์สำหรับหน้าต่างแชททั้งหมด */
+        /* ทำให้ขอบโค้งมนและมีเงาสีทองอ่อนๆ */
+        .n8n-chat-ui-container, .n8n-chat-ui-window {
+            border-radius: 15px !important; 
+            box-shadow: 0 4px 15px rgba(181, 142, 64, 0.3) !important;
+        }
 
-  /* ข้อความบอท */
-  .n8n-chat-message.bot {
-    background-color: #fff0e0;  /* สีส้มอ่อน */
-    color: #333;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 8px 12px;
-  }
+        /* 3. พื้นหลังส่วนข้อความแชท */
+        .n8n-chat-ui-messages-container {
+            background-color: #FFF7E6 !important; /* สีครีมวานิลลา */
+        }
 
-  /* ปุ่มส่งข้อความ */
-  .n8n-chat-send-button {
-    background-color: #ffb6b9;  /* ชมพูหวาน */
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 6px 14px;
-  }
+        /* 4. ส่วนหัวของแชท (Chat Header) */
+        .n8n-chat-ui-header {
+            background-color: #E87A90 !important; /* สีสตรอว์เบอร์รี */
+            color: white !important;
+            border-bottom: 2px solid #B58E40 !important; /* ขอบสีทอง */
+        }
 
-  /* พื้นที่พิมพ์ข้อความ */
-  .n8n-chat-input textarea {
-    background-color: #fff0e0;
-    border-radius: 12px;
-    padding: 8px 12px;
-    color: #333;
-    font-size: 15px;
-  }
+        /* 5. ข้อความจากบอท (Bot Messages) */
+        .n8n-chat-ui-bot-message {
+            background-color: #F0E5D7 !important; /* สีขนมปังอ่อน */
+            color: #333333 !important;
+            border-radius: 12px 12px 12px 4px !important; 
+        }
 
-  /* เพิ่มโลโก้ร้านขนมด้านบนกล่อง */
-  .n8n-chat-header {
-    background-image: url('https://yourwebsite.com/logo.png'); /* ใส่ URL โลโก้ร้าน */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 60px;
-  }
-</style>
+        /* 6. ข้อความจากผู้ใช้ (User Messages) */
+        .n8n-chat-ui-user-message {
+            background-color: #E87A90 !important; /* สีสตรอว์เบอร์รี */
+            color: white !important;
+            border-radius: 12px 12px 4px 12px !important;
+        }
+        
+        /* 7. ไอคอนเริ่มต้น (ปุ่มแชทที่ย่ออยู่) */
+        .n8n-chat-ui-fab-button {
+            background-color: #B58E40 !important; /* ใช้สีทองสำหรับปุ่มหลัก */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        }
 
-<script type="module">
- import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        /* 8. ช่องพิมพ์ข้อความ (Input Area) */
+        .n8n-chat-ui-input-area {
+            border-top: 1px solid #B58E40 !important; /* เส้นขอบสีทอง */
+            background-color: #FFF7E6 !important;
+        }
 
- createChat({
-  webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat'
- });
-</script>
+        /* 9. ปุ่มส่งข้อความ/ปุ่มหลักอื่นๆ (เช่น Suggested Actions) */
+        .n8n-chat-ui-send-button, .n8n-chat-ui-button {
+            background-color: #E87A90 !important;
+            color: white !important;
+            border-radius: 8px !important;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        
+        createChat({
+            webhookUrl: 'YOUR_PRODUCTION_WEBHOOK_URL',
+            // ตัวเลือกเสริม: คุณสามารถกำหนดข้อความต้อนรับ, ไอคอน, หรือชื่อบอทได้ที่นี่
+            config: {
+                // ตัวอย่าง: ถ้าคุณต้องการเปลี่ยนชื่อที่แสดงใน Header
+                // name: 'Kanom Baan-Baan Bot', 
+                // tagline: 'สอบถามเรื่องเค้กและขนมปังได้เลยค่ะ/ครับ'
+            }
+        });
+    </script>
 </body>
 </html>
