@@ -164,80 +164,122 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-    <style>
-        /* 1. กำหนดตัวแปร CSS หลัก (บาง n8n Chat UI version อาจจะใช้) */
-        :root {
-            --chat--color--primary: #E87A90 !important;
-            --chat--color--secondary: #B58E40 !important;
-            --chat--color--light: #FFF7E6 !important;
-        }
+<div class="n8n-chat-floating cute">
+    <div class="chat-header">
+        <img src="โลโก้ร้าน.png">
+        <span>Kanom Baan-Baan Chat</span>
+    </div>
+    <div id="n8n-chat-floating"></div>
+</div>
 
-        /* 2. สไตล์สำหรับหน้าต่างแชททั้งหมด */
-        /* ทำให้ขอบโค้งมนและมีเงาสีทองอ่อนๆ */
-        .n8n-chat-ui-container, .n8n-chat-ui-window {
-            border-radius: 15px !important; 
-            box-shadow: 0 4px 15px rgba(181, 142, 64, 0.3) !important;
-        }
+<style>
+.n8n-chat-floating.cute {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    max-width: 90%;
+    background-color: #fffaf2;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Kanit', sans-serif;
+    transition: transform 0.2s;
+}
 
-        /* 3. พื้นหลังส่วนข้อความแชท */
-        .n8n-chat-ui-messages-container {
-            background-color: #FFF7E6 !important; /* สีครีมวานิลลา */
-        }
+.n8n-chat-floating.cute .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f4a261;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        /* 4. ส่วนหัวของแชท (Chat Header) */
-        .n8n-chat-ui-header {
-            background-color: #E87A90 !important; /* สีสตรอว์เบอร์รี */
-            color: white !important;
-            border-bottom: 2px solid #B58E40 !important; /* ขอบสีทอง */
-        }
+.n8n-chat-floating.cute .chat-header img {
+    height: 35px;
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
 
-        /* 5. ข้อความจากบอท (Bot Messages) */
-        .n8n-chat-ui-bot-message {
-            background-color: #F0E5D7 !important; /* สีขนมปังอ่อน */
-            color: #333333 !important;
-            border-radius: 12px 12px 12px 4px !important; 
-        }
+.n8n-chat-floating.cute .chat-header:hover img {
+    transform: rotate(20deg);
+}
 
-        /* 6. ข้อความจากผู้ใช้ (User Messages) */
-        .n8n-chat-ui-user-message {
-            background-color: #E87A90 !important; /* สีสตรอว์เบอร์รี */
-            color: white !important;
-            border-radius: 12px 12px 4px 12px !important;
-        }
-        
-        /* 7. ไอคอนเริ่มต้น (ปุ่มแชทที่ย่ออยู่) */
-        .n8n-chat-ui-fab-button {
-            background-color: #B58E40 !important; /* ใช้สีทองสำหรับปุ่มหลัก */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
-        }
+.n8n-chat-floating.cute .message.bot {
+    background-color: #f7d1c1;
+    color: #4a2c2a;
+    border-radius: 18px 18px 18px 5px;
+    margin: 5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: bounce 0.3s;
+}
 
-        /* 8. ช่องพิมพ์ข้อความ (Input Area) */
-        .n8n-chat-ui-input-area {
-            border-top: 1px solid #B58E40 !important; /* เส้นขอบสีทอง */
-            background-color: #FFF7E6 !important;
-        }
+.n8n-chat-floating.cute .message.user {
+    background-color: #ffe3b3;
+    color: #4a2c2a;
+    border-radius: 18px 18px 5px 18px;
+    margin: 5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 
-        /* 9. ปุ่มส่งข้อความ/ปุ่มหลักอื่นๆ (เช่น Suggested Actions) */
-        .n8n-chat-ui-send-button, .n8n-chat-ui-button {
-            background-color: #E87A90 !important;
-            color: white !important;
-            border-radius: 8px !important;
-        }
-    </style>
-</head>
-<body>
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-        
-        createChat({
-            webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat',
-            // ตัวเลือกเสริม: คุณสามารถกำหนดข้อความต้อนรับ, ไอคอน, หรือชื่อบอทได้ที่นี่
-            config: {
-                // ตัวอย่าง: ถ้าคุณต้องการเปลี่ยนชื่อที่แสดงใน Header
-                // name: 'Kanom Baan-Baan Bot', 
-                // tagline: 'สอบถามเรื่องเค้กและขนมปังได้เลยค่ะ/ครับ'
-            }
-        });
-    </script>
+.n8n-chat-floating.cute button.send {
+    background-color: #f4a261;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.n8n-chat-floating.cute #n8n-chat-floating {
+    display: none;
+    height: 400px; 
+    overflow-y: auto;
+}
+.n8n-chat-floating.cute.active #n8n-chat-floating {
+    display: block;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(-5px); }
+    50% { transform: translateY(0); }
+    100% { transform: translateY(-2px); }
+}
+
+.n8n-chat-floating.cute .message.bot::before {
+    content: "🍪";
+}
+.n8n-chat-floating.cute .message.user::before {
+    content: "🍩";
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/bundle.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const chatFloating = new N8nChat({
+        element: '#n8n-chat-floating',
+        endpoint: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat' 
+    });
+
+    const container = document.querySelector('.n8n-chat-floating.cute');
+    const header = container.querySelector('.chat-header');
+    header.addEventListener('click', () => {
+        container.classList.toggle('active');
+    });
+});
+</script>
 </body>
 </html>
