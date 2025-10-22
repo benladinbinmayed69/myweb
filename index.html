@@ -165,68 +165,91 @@
     <p>โทร:0987654321</p>
   </footer>
 
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+ <link href="chart-theme.css" rel="stylesheet" />
+
 <style>
-  /* ตัวกล่องแชทหลัก */
-  .n8n-chat-wrapper {
-    --n8n-chat-bg: #fffaf2;        /* พื้นหลังหลัก */
-    --n8n-chat-border-radius: 20px;
-    --n8n-chat-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-  }
+/* * Custom CSS สำหรับ n8n Chat UI - ธีมขนม 
+ * เราจะใช้คลาสที่ n8n กำหนดขึ้น (เช่น .n8n-chat-ui-...) 
+ */
 
-  /* ข้อความผู้ใช้ */
-  .n8n-chat-message.user {
-    background-color: #ffdede;  /* สีชมพูอ่อน */
-    color: #333;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 8px 12px;
-  }
+/* 1. กำหนดตัวแปร CSS หลัก (Overrides for color) */
+:root {
+    /* สีหลัก - สำหรับปุ่มหลัก, ปุ่มส่ง, Icon ที่ย่ออยู่ */
+    --chat--color--primary: #f4a261 !important; /* สีส้ม/ขนมปัง */
+    /* สีรอง - สำหรับพื้นหลังอ่อนๆ */
+    --chat--color--light: #fffaf2 !important; /* สีครีมวานิลลา */
+    /* สีอื่นๆ */
+    --chat--color-text: #4a2c2a !important; /* สีข้อความเข้ม */
+}
 
-  /* ข้อความบอท */
-  .n8n-chat-message.bot {
-    background-color: #fff0e0;  /* สีส้มอ่อน */
-    color: #333;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 8px 12px;
-  }
+/* 2. ปุ่มลอย (FAB - Floating Action Button) เมื่อแชทยังไม่เปิด */
+.n8n-chat-ui-fab-button {
+    background-color: #f4a261 !important; /* สีส้ม/ขนมปัง */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 50% !important;
+}
 
-  /* ปุ่มส่งข้อความ */
-  .n8n-chat-send-button {
-    background-color: #ffb6b9;  /* ชมพูหวาน */
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 6px 14px;
-  }
+/* 3. ส่วนหัวของแชท (Chat Header) */
+.n8n-chat-ui-header {
+    background-color: #f4a261 !important; /* สีส้ม/ขนมปัง */
+    color: white !important;
+    font-family: 'Kanit', sans-serif !important;
+}
 
-  /* พื้นที่พิมพ์ข้อความ */
-  .n8n-chat-input textarea {
-    background-color: #fff0e0;
-    border-radius: 12px;
-    padding: 8px 12px;
-    color: #333;
-    font-size: 15px;
-  }
+/* 4. พื้นหลังหน้าต่างแชท */
+.n8n-chat-ui-window {
+    border-radius: 20px !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25) !important;
+    background-color: #fffaf2 !important; /* สีครีมวานิลลา */
+}
 
-  /* เพิ่มโลโก้ร้านขนมด้านบนกล่อง */
-  .n8n-chat-header {
-    background-image: url('https://yourwebsite.com/logo.png'); /* ใส่ URL โลโก้ร้าน */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 60px;
-  }
+/* 5. พื้นหลังข้อความแชททั้งหมด */
+.n8n-chat-ui-messages-container {
+    background-color: #fffaf2 !important; 
+}
+
+/* 6. ฟองข้อความบอท (Bot Message Bubble) */
+.n8n-chat-ui-bot-message {
+    background-color: #f7d1c1 !important; /* สีชมพูอ่อน (Strawberry) */
+    color: #4a2c2a !important;
+    border-radius: 18px 18px 18px 5px !important;
+}
+
+/* 7. ฟองข้อความผู้ใช้ (User Message Bubble) */
+.n8n-chat-ui-user-message {
+    background-color: #ffe3b3 !important; /* สีเหลืองอ่อน (Butter) */
+    color: #4a2c2a !important;
+    border-radius: 18px 18px 5px 18px !important;
+}
+
+/* 8. ช่องพิมพ์ข้อความ (Input Area) */
+.n8n-chat-ui-input-area {
+    background-color: #fffaf2 !important;
+}
+
+/* 9. ปุ่มส่งข้อความ (Send Button) */
+.n8n-chat-ui-send-button {
+    background-color: #f4a261 !important;
+    color: white !important;
+    border-radius: 12px !important;
+}
+
+/* **Extra Cute Styles** */
+/* เพิ่มไอคอนขนมเล็กๆ (อาจไม่ทำงานถ้า n8n ใช้ Shadow DOM ปิดกั้น) */
+/* .n8n-chat-ui-bot-message::before { content: "🍪 "; }
+.n8n-chat-ui-user-message::before { content: "🍩 "; } */
+
 </style>
 
 <script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-	createChat({
-		webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat'
-	});
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    
+    // N8nChat ในโค้ดเดิมของคุณอาจเป็นชื่อคลาสเก่า
+    // ให้ใช้ createChat ตามที่ n8n แนะนำ
+    createChat({
+        webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat' // <-- สำคัญ! แทนที่ด้วย URL จริง
+        // mode: 'window' (ค่าเริ่มต้น),
+    });
 </script>
 </body>
 </html>
