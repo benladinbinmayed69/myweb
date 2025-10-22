@@ -2,83 +2,176 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ร้านยางลบ CMU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ขนมบ้านๆ - Homemade Cake & Bakery</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
+    /* ===== Reset ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+    body { line-height: 1.6; color: #333; background-color: #fff8f0; }
+
+    /* ===== Header ===== */
+    header { 
+      background-color: #ffd6ba; 
+      padding: 40px 20px; 
+      text-align: center; 
+      color: #703800;
+      position: relative;
     }
-    header {
-      background-color: #6b4c9a;
-      padding: 20px;
-      text-align: center;
-    }
-    header img {
+    header img.logo {
+      width: 80px;
       height: 80px;
+      object-fit: contain;
+      position: absolute;
+      top: 20px;
+      left: 20px;
     }
-    h1 {
-      color: #333;
-      text-align: center;
-      margin-top: 30px;
-    }
-    .promo {
-      text-align: center;
-      font-size: 1.2em;
-      color: #6b4c9a;
-      margin-bottom: 30px;
-    }
-    .product-grid {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      padding: 0 20px 40px;
-    }
-    .product {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 250px;
-      text-align: center;
-      padding: 20px;
-    }
-    .product img {
-      width: 100%;
-      height: auto;
-      border-radius: 5px;
-    }
-    .price {
-      font-size: 1.1em;
-      color: #333;
+    header h1 { font-family: 'Pacifico', cursive; font-size: 3em; margin-bottom: 10px; }
+    header p { font-size: 1.2em; margin-bottom: 20px; }
+    header a { background-color: #ff7f50; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; transition: all 0.3s ease; }
+    header a:hover { background-color: #e76f3c; transform: scale(1.05); }
+
+    /* ===== Section ===== */
+    section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+    h2 { text-align: center; margin-bottom: 40px; font-size: 2em; color: #703800; }
+
+    /* ===== Menu ===== */
+    .menu-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .menu-item { background-color: #fff2e8; border-radius: 15px; padding: 20px; width: 220px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+    .menu-item:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .menu-item img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+    .menu-item h3 { color: #ff7f50; margin-bottom: 10px; }
+    .menu-item p { font-size: 0.9em; margin-bottom: 5px; }
+    .order-btn {
+      display: inline-block;
       margin-top: 10px;
+      padding: 8px 20px;
+      background-color: #ff7f50;
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .order-btn:hover { background-color: #e76f3c; transform: scale(1.05); }
+
+    /* ===== Promo ===== */
+    .promo { background-color: #ffe5d4; text-align: center; border-radius: 15px; padding: 30px 20px; margin-bottom: 40px; }
+    .promo h3 { color: #ff6347; margin-bottom: 10px; }
+    .promo p { font-size: 1.1em; }
+
+    /* ===== About ===== */
+    .about p { font-size: 1.1em; text-align: center; max-width: 800px; margin: 0 auto; }
+
+    /* ===== Footer ===== */
+    footer { background-color: #ffd6ba; text-align: center; padding: 30px 20px; color: #703800; }
+    footer a { color: #ff7f50; text-decoration: none; font-weight: bold; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .menu-item { width: 45%; }
+      header img.logo { width: 60px; height: 60px; top: 15px; left: 15px; }
+    }
+    @media (max-width: 500px) {
+      .menu-item { width: 100%; }
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
+  <!-- Header -->
   <header>
-    <img src="logo.png" alt="โลโก้ CMU">
+    <img src="โลโก้ร้าน.png">
+    <h1>ขนมบ้านๆ</h1>
+    <p>อบด้วยใจ สดใหม่ทุกวัน</p>
+    <a href="#menu">สั่งซื้อเลย</a>
   </header>
 
-  <h1>ร้านยางลบ CMU</h1>
-  <div class="promo">🧽 ลบได้เกลี้ยง เก็บได้ทุกความผิดพลาด ✨ เหมาะสำหรับนักศึกษาทุกคณะ!</div>
+  <!-- Menu Section -->
+  <section id="menu">
+    <h2>เมนูแนะนำ</h2>
+    <div class="menu-container">
+      <div class="menu-item">
+        <img src="เค้กช็อคโกแลต.png">
+        <h3>เค้กช็อกโกแลต</h3>
+        <p>เนื้อนุ่ม ราดช็อกโกแลตเข้มข้น</p>
+        <p>ราคา: 50 บาท</p>
+        <a href="#order" class="order-btn">สั่งซื้อ</a>
+      </div>
+      <div class="menu-item">
+        <img src="เค้กวานิลลา.png">
+        <h3>เค้กวนิลา</h3>
+        <p>หอมหวาน นุ่มละมุน</p>
+        <p>ราคา: 45 บาท</p>
+        <a href="#order" class="order-btn">สั่งซื้อ</a>
+      </div>
+      <div class="menu-item">
+        <img src="เค้กชาเขียวมัทฉะ.png">
+        <h3>เค้กชาเขียวมัทฉะ</h3>
+        <p>กลิ่นชาเขียวญี่ปุ่นแท้</p>
+        <p>ราคา: 55 บาท</p>
+        <a href="#order" class="order-btn">สั่งซื้อ</a>
+      </div>
+      <div class="menu-item">
+        <img src="บราวนี่.png">
+        <h3>บราวนี่</h3>
+        <p>หนึบหนับ ช็อกโกแลตเข้มข้น</p>
+        <p>ราคา: 50 บาท</p>
+        <a href="#order" class="order-btn">สั่งซื้อ</a>
+      </div>
+      <div class="menu-item">
+        <img src="ครัวซอง.png">
+        <h3>ครัวซองต์เนยสด</h3>
+        <p>กรอบนอก นุ่มใน หอมเนยแท้</p>
+        <p>ราคา: 45 บาท</p>
+        <a href="#order" class="order-btn">สั่งซื้อ</a>
+      </div>
+      <div class="menu-item">
+        <img src="คุ้กกี้.png">
+        <h3>คุกกี้ช็อกชิพ</h3>
+        <p>กรอบ หอม หวานกำลังดี</p>
+        <p>ราคา: 40 บาท</p>
+        <a href="#order" class="order-btn">สั่งซื้อ</a>
+      </div>
+    </div>
+  </section>
 
-  <div class="product-grid">
-    <div class="product">
-      <img src="ยางลบ1.jpg" alt="ยางลบ Staedtler">
-      <div class="price">ราคา: 25 บาท</div>
+  <!-- Promo Section -->
+  <section id="promo">
+    <div class="promo">
+      <h3>โปรโมชั่นพิเศษ!</h3>
+      <p>ซื้อครบ 5 ชิ้น แถมฟรี 1 ชิ้น 🧁</p>
+      <p>บริการส่งฟรีเมื่อสั่ง5ชิ้นขึ้นไป</p>
     </div>
-    <div class="product">
-      <img src="ยางลบ2.jpg" alt="ยางลบ Pentel">
-      <div class="price">ราคา: 20 บาท</div>
-    </div>
-    <div class="product">
-      <img src="ยางลบ3.jpg"ยางลบ Tombow MONO">
-      <div class="price">ราคา: 30 บาท</div>
-    </div>
-  </div>
+  </section>
 
+  <!-- About Section -->
+  <section id="about">
+    <h2>เกี่ยวกับร้านเรา</h2>
+    <div class="about">
+      <p>
+        ขนมบ้านๆ เป็นร้านเค้กโฮมเมดที่อบสดใหม่ทุกวัน ใช้วัตถุดิบคุณภาพ ไม่ใส่สารกันบูด มีเมนูหลากหลายเหมาะกับนักศึกษาและคนทำงาน
+        สร้างความรู้สึกอบอุ่นเหมือนขนมทำจากบ้าน ร้านเรามีทั้งหน้าร้านและจัดส่งภายในรัศมี10กิโลเมตร
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    ติดต่อเรา: 
+    <a href="https://www.instagram.com/kanombaan_baan?igsh=MWx0b3FybnI3dngzdA==" target="_blank">instagram:kanombaan_baan
+</a> | 
+    <p>โทร:0987654321</p>
+  </footer>
+
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+ import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+ createChat({
+  webhookUrl: 'YOUR_PRODUCTION_WEBHOOK_URL'
+ });
+</script>
 </body>
 </html>
