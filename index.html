@@ -168,7 +168,98 @@
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+<style><style>
+/* === Kanom Baan-Baan Chatbot Theme === */
+:root {
+  --bot-bg-color: #fcd9c6; /* soft peach background */
+  --bot-accent-color: #caa76a; /* warm gold tone */
+  --bot-text-color: #4a3b2c; /* chocolate brown for text */
+  --bot-user-msg-bg: #fff7f2; /* creamy white user message bubble */
+  --bot-bubble-bg: #fce8da; /* light peach bot bubble */
+}
 
+/* Chat container */
+.n8n-chat {
+  background-color: var(--bot-bg-color) !important;
+  font-family: "Poppins", "Prompt", sans-serif;
+}
+
+/* Bot messages */
+.n8n-chat-message.bot {
+  background-color: var(--bot-bubble-bg) !important;
+  border-radius: 16px;
+  border: 1px solid var(--bot-accent-color);
+  color: var(--bot-text-color);
+}
+
+/* User messages */
+.n8n-chat-message.user {
+  background-color: var(--bot-user-msg-bg) !important;
+  border-radius: 16px;
+  border: 1px solid var(--bot-accent-color);
+  color: var(--bot-text-color);
+}
+
+/* Chat input area */
+.n8n-chat-input {
+  background-color: var(--bot-bg-color) !important;
+  border-top: 1px solid var(--bot-accent-color);
+}
+
+.n8n-chat-input input {
+  border: 1px solid var(--bot-accent-color);
+  border-radius: 10px;
+  padding: 8px;
+}
+
+/* Send button */
+.n8n-chat-input button {
+  background-color: var(--bot-accent-color) !important;
+  color: white !important;
+  border-radius: 10px;
+  border: none;
+}
+</style>
+
+<script>
+/* === Kanom Baan-Baan Chatbot Personalization === */
+(function customizeChatbot() {
+  const BOT_NAME = "KanomBot"; // change bot name here
+  const MAX_RETRIES = 20;
+  let tries = 0;
+
+  function applyCustomization() {
+    const chatHeader = document.querySelector(".n8n-chat-header");
+    const chatMessages = document.querySelectorAll(".n8n-chat-message.bot");
+
+    if (!chatHeader && tries < MAX_RETRIES) {
+      tries++;
+      return setTimeout(applyCustomization, 500);
+    }
+
+    // Add bot name in header
+    if (chatHeader && !chatHeader.dataset.customized) {
+      chatHeader.innerText = BOT_NAME + " 🍰";
+      chatHeader.style.backgroundColor = "#fcd9c6";
+      chatHeader.style.color = "#4a3b2c";
+      chatHeader.style.fontWeight = "600";
+      chatHeader.style.borderBottom = "2px solid #caa76a";
+      chatHeader.dataset.customized = "true";
+    }
+
+    // Update bot introduction if first message exists
+    if (chatMessages.length && !document.body.dataset.botIntroAdded) {
+      const firstMsg = chatMessages[0];
+      firstMsg.innerHTML = `<strong>${BOT_NAME}:</strong> สวัสดีค่ะ! ฉันคือ ${BOT_NAME} จาก Kanom Baan-Baan 🍰 ยินดีให้บริการค่ะ`;
+      document.body.dataset.botIntroAdded = "true";
+    }
+  }
+
+  // Initial call
+  applyCustomization();
+})();
+</script>
+</style>
  createChat({
   webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat'
  });
