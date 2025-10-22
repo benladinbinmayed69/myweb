@@ -164,44 +164,135 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<!-- วางส่วนนี้ใน <body> ของหน้าเว็บ -->
+<div class="n8n-chat-floating cute">
+    <div class="chat-header">
+        <img src="https://via.placeholder.com/40x40.png?text=🍰" alt="โลโก้ร้านขนม">
+        <span>Kanom Baan-Baan Chat</span>
+    </div>
+    <div id="n8n-chat-floating"></div>
+</div>
+
 <style>
-  /* ปรับสีพื้นหลังของกล่องแชท */
-  .n8n-chat-wrapper {
-    --n8n-chat-bg: #fffaf2;         /* สีพื้นหลังกล่อง */
-    --n8n-chat-border-radius: 15px; /* ขอบโค้งมน */
-    --n8n-chat-shadow: 0 4px 12px rgba(0,0,0,0.15); /* เงาเล็กน้อย */
-  }
+/* ===== กล่องแชทลอยมุมขวาล่างธีมขนม ===== */
+.n8n-chat-floating.cute {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    max-width: 90%;
+    background-color: #fffaf2;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Kanit', sans-serif;
+    transition: transform 0.2s;
+}
 
-  /* ปรับสีข้อความผู้ใช้ */
-  .n8n-chat-message.user {
-    background-color: #ffdede; /* สีชมพูอ่อน */
-    color: #333;               /* สีข้อความเข้ม */
-    border-radius: 12px;
-  }
-
-  /* ปุ่มส่งข้อความ */
-  .n8n-chat-send-button {
-    background-color: #ffb6b9; /* ชมพูอ่อน */
+/* header ของแชท */
+.n8n-chat-floating.cute .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f4a261;
     color: white;
+    padding: 10px;
+    cursor: pointer;
     font-weight: bold;
-    border-radius: 8px;
-  }
+}
 
-  /* ข้อความของ bot */
-  .n8n-chat-message.bot {
-    background-color: #fff0e0; /* สีส้มอ่อน */
-    color: #333;
+/* โลโก้ */
+.n8n-chat-floating.cute .chat-header img {
+    height: 35px;
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+/* hover header effect */
+.n8n-chat-floating.cute .chat-header:hover img {
+    transform: rotate(20deg);
+}
+
+/* ฟองข้อความบอท */
+.n8n-chat-floating.cute .message.bot {
+    background-color: #f7d1c1;
+    color: #4a2c2a;
+    border-radius: 18px 18px 18px 5px;
+    margin: 5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: bounce 0.3s;
+}
+
+/* ฟองข้อความผู้ใช้ */
+.n8n-chat-floating.cute .message.user {
+    background-color: #ffe3b3;
+    color: #4a2c2a;
+    border-radius: 18px 18px 5px 18px;
+    margin: 5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ปุ่มส่งข้อความ */
+.n8n-chat-floating.cute button.send {
+    background-color: #f4a261;
+    color: white;
+    border: none;
+    padding: 6px 12px;
     border-radius: 12px;
-  }
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ซ่อน/แสดงแชท */
+.n8n-chat-floating.cute #n8n-chat-floating {
+    display: none;
+    height: 400px; /* ปรับตามต้องการ */
+    overflow-y: auto;
+}
+.n8n-chat-floating.cute.active #n8n-chat-floating {
+    display: block;
+}
+
+/* animation เด้ง */
+@keyframes bounce {
+    0% { transform: translateY(-5px); }
+    50% { transform: translateY(0); }
+    100% { transform: translateY(-2px); }
+}
+
+/* icon ขนมเล็ก ๆ ก่อนข้อความ */
+.n8n-chat-floating.cute .message.bot::before {
+    content: "🍪";
+}
+.n8n-chat-floating.cute .message.user::before {
+    content: "🍩";
+}
 </style>
 
-<script type="module">
- import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+<script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/bundle.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    // สร้างแชท
+    const chatFloating = new N8nChat({
+        element: '#n8n-chat-floating',
+        endpoint: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat' // <-- ใส่ URL ของคุณ
+    });
 
- createChat({
-  webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat'
- });
+    // toggle เปิด/ปิดแชท
+    const container = document.querySelector('.n8n-chat-floating.cute');
+    const header = container.querySelector('.chat-header');
+    header.addEventListener('click', () => {
+        container.classList.toggle('active');
+    });
+});
 </script>
 </body>
 </html>
