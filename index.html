@@ -164,67 +164,117 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <style>
-  /* ตัวกล่องแชทหลัก */
-  .n8n-chat-wrapper {
-    --n8n-chat-bg: #fffaf2;        /* พื้นหลังหลัก */
-    --n8n-chat-border-radius: 20px;
-    --n8n-chat-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-  }
+/* กล่องแชทหลัก */
+.n8n-chat-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  max-width: 90%;
+  height: 500px;
+  background-color: #fffaf2;   /* พื้นหลังครีมอ่อน */
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  overflow: hidden;
+  z-index: 9999;
+}
 
-  /* ข้อความผู้ใช้ */
-  .n8n-chat-message.user {
-    background-color: #ffdede;  /* สีชมพูอ่อน */
-    color: #333;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 8px 12px;
-  }
+/* ส่วนหัวกล่อง (โลโก้ร้าน) */
+.n8n-chat-header {
+  height: 60px;
+  background-image: url('https://yourwebsite.com/logo.png'); /* ใส่ URL โลโก้ร้าน */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
 
-  /* ข้อความบอท */
-  .n8n-chat-message.bot {
-    background-color: #fff0e0;  /* สีส้มอ่อน */
-    color: #333;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 8px 12px;
-  }
+/* พื้นที่ข้อความ */
+.n8n-chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #fff8f0;  /* พื้นหลังข้อความ */
+}
 
-  /* ปุ่มส่งข้อความ */
-  .n8n-chat-send-button {
-    background-color: #ffb6b9;  /* ชมพูหวาน */
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 6px 14px;
-  }
+/* ข้อความผู้ใช้ */
+.n8n-chat-message.user {
+  align-self: flex-end;
+  background-color: #ffdede;
+  color: #333;
+  border-radius: 15px;
+  padding: 8px 12px;
+  max-width: 80%;
+  font-size: 15px;
+  word-wrap: break-word;
+}
 
-  /* พื้นที่พิมพ์ข้อความ */
-  .n8n-chat-input textarea {
-    background-color: #fff0e0;
-    border-radius: 12px;
-    padding: 8px 12px;
-    color: #333;
-    font-size: 15px;
-  }
+/* ข้อความบอท */
+.n8n-chat-message.bot {
+  align-self: flex-start;
+  background-color: #fff0e0;
+  color: #333;
+  border-radius: 15px;
+  padding: 8px 12px;
+  max-width: 80%;
+  font-size: 15px;
+  word-wrap: break-word;
+}
 
-  /* เพิ่มโลโก้ร้านขนมด้านบนกล่อง */
-  .n8n-chat-header {
-    background-image: url('https://yourwebsite.com/logo.png'); /* ใส่ URL โลโก้ร้าน */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 60px;
-  }
+/* พื้นที่พิมพ์ข้อความ */
+.n8n-chat-input {
+  padding: 10px;
+  background-color: #fff8f0;
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.n8n-chat-input textarea {
+  flex: 1;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 15px;
+  color: #333;
+  resize: none;
+  background-color: #fff0e0;
+}
+
+.n8n-chat-input textarea:focus {
+  outline: none;
+  box-shadow: 0 0 3px #ffb6b9;
+}
+
+/* ปุ่มส่งข้อความ */
+.n8n-chat-send-button {
+  background-color: #ffb6b9;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.n8n-chat-send-button:hover {
+  background-color: #ff8f92;
+}
 </style>
 
 <script type="module">
  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
  createChat({
-  webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat'
+  webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat' // เปลี่ยนตรงนี้เป็น webhook ของคุณ
  });
 </script>
 </body>
