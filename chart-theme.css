@@ -1,4 +1,13 @@
-/* chat-theme.css */
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เว็บไซต์ขนมบ้านๆ</title>
+
+  <!-- ใส่ CSS ของ n8n chat ที่นี่ -->
+  <style>
+   /* chat-theme.css */
 .n8n-chat-container {
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -22,3 +31,21 @@
 .n8n-chat-body::-webkit-scrollbar { width: 8px; }
 .n8n-chat-body::-webkit-scrollbar-thumb { background-color: #ffb3b3; border-radius: 4px; }
 .n8n-chat-body::-webkit-scrollbar-track { background-color: #fffaf2; }
+  </style>
+</head>
+<body>
+  <!-- เนื้อหาเว็บไซต์ -->
+
+  <!-- container ของ n8n chat -->
+  <div id="n8n-chat"></div>
+
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    createChat({
+      webhookUrl: 'YOUR_PRODUCTION_WEBHOOK_URL',
+      container: document.getElementById('n8n-chat')
+    });
+  </script>
+</body>
+</html>
