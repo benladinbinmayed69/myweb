@@ -164,203 +164,97 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-<!-- 🍰 Kanom Baan-Baan Chatbot UI -->
+<link
+  href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+  rel="stylesheet"
+/>
+
 <style>
+  /* 🎀 พื้นฐานธีม "ขนมบ้านๆ" */
   :root {
-    --cream-bg: #fffaf2;
-    --gold: #d7b98e;
-    --gold-light: #f4e5c2;
-    --brown: #5a4228;
+    --chat-bg: #fffaf2;
+    --chat-bot: #f7f5f0;
+    --chat-user: #ffe7c2;
+    --chat-border: #e7d3a5;
+    --chat-gold: #d7b98e;
+    --chat-brown: #5a4228;
+    --chat-shadow: rgba(0, 0, 0, 0.15);
   }
 
-  #chatbot-container {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 340px;
-    background: var(--cream-bg);
-    border: 2px solid var(--gold);
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    font-family: 'Kanit', 'Poppins', sans-serif;
-    z-index: 9999;
+  /* ตกแต่งกล่องหลักของ n8n Chat */
+  n8n-chat {
+    --chat-background: var(--chat-bg);
+    --chat-font-family: 'Kanit', 'Prompt', sans-serif;
+    --chat-font-size: 15px;
+    --chat-radius: 14px;
+    --chat-header-background: linear-gradient(90deg, var(--chat-gold), #f4e5c2);
+    --chat-header-color: var(--chat-brown);
+    --chat-header-padding: 12px;
+    --chat-header-font-weight: 600;
+    --chat-header-shadow: 0 3px 8px var(--chat-shadow);
+    --chat-bubble-user-bg: var(--chat-user);
+    --chat-bubble-user-color: var(--chat-brown);
+    --chat-bubble-bot-bg: var(--chat-bot);
+    --chat-bubble-bot-border: 1px solid var(--chat-border);
+    --chat-bubble-bot-color: var(--chat-brown);
+    --chat-input-background: #fff9f2;
+    --chat-input-border: 1px solid var(--chat-border);
+    --chat-input-color: var(--chat-brown);
+    --chat-button-background: var(--chat-gold);
+    --chat-button-color: var(--chat-brown);
+    --chat-button-hover-background: #f4e5c2;
+    --chat-shadow: 0 8px 20px var(--chat-shadow);
   }
 
-  #chatbot-header {
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    color: var(--brown);
-    font-weight: 600;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-  }
-
-  #chatbot-header img {
-    width: 26px;
-    vertical-align: middle;
-    margin-right: 6px;
-  }
-
-  #chatbot-close {
-    position: absolute;
-    right: 12px;
-    top: 8px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-
-  #chatbot-messages {
-    height: 320px;
-    overflow-y: auto;
-    padding: 10px;
-    background-color: #fffdf9;
-  }
-
-  .message {
-    margin: 8px 0;
-    padding: 10px 14px;
-    border-radius: 14px;
-    max-width: 85%;
-    line-height: 1.4;
-    word-wrap: break-word;
-    animation: fadeIn 0.2s ease;
-  }
-
-  .user {
-    background: #ffe9c6;
-    color: var(--brown);
-    align-self: flex-end;
-    margin-left: auto;
-  }
-
-  .bot {
-    background: #f7f5f0;
-    border: 1px solid #ebdcc1;
-    color: var(--brown);
-  }
-
-  #chatbot-input {
-    display: flex;
-    border-top: 1px solid #e8d4b4;
-    background: #fffaf2;
-  }
-
-  #chatbot-input input {
-    flex: 1;
-    border: none;
-    padding: 10px;
-    border-radius: 0 0 0 14px;
-    outline: none;
-    background: transparent;
-    font-size: 14px;
-  }
-
-  #chatbot-input button {
-    background: var(--gold);
-    border: none;
-    color: var(--brown);
-    padding: 10px 14px;
-    border-radius: 0 0 14px 0;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  #chatbot-input button:hover {
-    background: var(--gold-light);
-  }
-
-  #chatbot-button {
-    position: fixed;
+  /* ปรับตำแหน่ง floating button */
+  n8n-chat::part(toggle-button) {
+    background: linear-gradient(135deg, var(--chat-gold), #f4e5c2);
+    color: var(--chat-brown);
+    box-shadow: 0 5px 12px var(--chat-shadow);
+    font-size: 26px;
+    border-radius: 50%;
+    width: 68px;
+    height: 68px;
     bottom: 25px;
     right: 25px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--brown);
-    border: none;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-    font-size: 28px;
-    transition: all 0.3s ease;
-    z-index: 9999;
+    transition: transform 0.2s ease;
   }
 
-  #chatbot-button:hover {
+  n8n-chat::part(toggle-button):hover {
     transform: scale(1.1);
   }
 
+  /* เพิ่มโลโก้ในหัวกล่องแชท */
+  n8n-chat::part(header)::before {
+    content: url('โลโก้ร้าน.png');
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  /* เพิ่มเอฟเฟกต์เวลาเปิดกล่อง */
+  n8n-chat::part(chat-window) {
+    animation: fadeIn 0.25s ease;
+  }
+
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
 
-<!-- ปุ่มเปิดแชท -->
-<button id="chatbot-button">💬</button>
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-<!-- กล่องแชท -->
-<div id="chatbot-container">
-  <div id="chatbot-header">
-    <img src="โลโก้ร้าน.png">
-    Kanom Baan-Baan Chatbot
-    <span id="chatbot-close">✖</span>
-  </div>
-
-  <div id="chatbot-messages">
-    <div class="message bot">สวัสดีค่ะ 🍰 ขนมบ้านๆ ยินดีต้อนรับนะคะ อยากดูเมนูขนมไหมคะ?</div>
-  </div>
-
-  <div id="chatbot-input">
-    <input type="text" id="user-input" placeholder="พิมพ์ข้อความ...">
-    <button id="send-btn">ส่ง</button>
-  </div>
-</div>
-
-<script>
-  const chatBtn = document.getElementById('chatbot-button');
-  const chatBox = document.getElementById('chatbot-container');
-  const chatClose = document.getElementById('chatbot-close');
-  const sendBtn = document.getElementById('send-btn');
-  const userInput = document.getElementById('user-input');
-  const chatArea = document.getElementById('chatbot-messages');
-
-  chatBtn.onclick = () => chatBox.style.display = 'flex';
-  chatClose.onclick = () => chatBox.style.display = 'none';
-
-  async function sendMessage() {
-    const msg = userInput.value.trim();
-    if (!msg) return;
-    addMessage(msg, 'user');
-    userInput.value = '';
-
-    try {
-      const res = await fetch('https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg })
-      });
-      const data = await res.json();
-      addMessage(data.reply || 'ระบบกำลังประมวลผล...', 'bot');
-    } catch (err) {
-      addMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ 🥺', 'bot');
-    }
-  }
-
-  function addMessage(text, sender) {
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message', sender);
-    msgDiv.textContent = text;
-    chatArea.appendChild(msgDiv);
-    chatArea.scrollTop = chatArea.scrollHeight;
-  }
-
-  sendBtn.onclick = sendMessage;
-  userInput.addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendMessage();
+  createChat({
+    webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat',
+    mode: 'fullscreen', // หรือใช้ 'floating' ก็ได้
+    initialMessage: 'สวัสดีค่ะ 🍰 ขนมบ้านๆ ยินดีต้อนรับ อยากดูเมนูขนมไหมคะ?',
+    theme: {
+      chat: {
+        position: 'bottom-right',
+        borderRadius: '14px',
+      },
+    },
   });
 </script>
 </body>
