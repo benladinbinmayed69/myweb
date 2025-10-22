@@ -165,164 +165,68 @@
     <p>โทร:0987654321</p>
   </footer>
 
-  <!-- ====== Chatbot UI (no iframe) ====== -->
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <style>
-  #chatbot-container {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 320px;
-    background: #fffdf9;
-    border: 2px solid #d7b98e;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-    display: none;
-    flex-direction: column;
-    font-family: 'Kanit', 'Poppins', sans-serif;
-    overflow: hidden;
-    z-index: 9999;
+  /* ตัวกล่องแชทหลัก */
+  .n8n-chat-wrapper {
+    --n8n-chat-bg: #fffaf2;        /* พื้นหลังหลัก */
+    --n8n-chat-border-radius: 20px;
+    --n8n-chat-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
   }
 
-  #chatbot-header {
-    background: linear-gradient(90deg,#d7b98e,#f4e5c2);
-    color: #5a4228;
-    text-align: center;
-    font-weight: bold;
-    padding: 10px;
-    position: relative;
-  }
-
-  #chatbot-close {
-    position: absolute;
-    right: 12px;
-    top: 8px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-
-  #chatbot-messages {
-    height: 300px;
-    overflow-y: auto;
-    padding: 10px;
-  }
-
-  .message {
-    margin: 6px 0;
+  /* ข้อความผู้ใช้ */
+  .n8n-chat-message.user {
+    background-color: #ffdede;  /* สีชมพูอ่อน */
+    color: #333;
+    border-radius: 15px;
+    font-size: 15px;
     padding: 8px 12px;
+  }
+
+  /* ข้อความบอท */
+  .n8n-chat-message.bot {
+    background-color: #fff0e0;  /* สีส้มอ่อน */
+    color: #333;
+    border-radius: 15px;
+    font-size: 15px;
+    padding: 8px 12px;
+  }
+
+  /* ปุ่มส่งข้อความ */
+  .n8n-chat-send-button {
+    background-color: #ffb6b9;  /* ชมพูหวาน */
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 6px 14px;
+  }
+
+  /* พื้นที่พิมพ์ข้อความ */
+  .n8n-chat-input textarea {
+    background-color: #fff0e0;
     border-radius: 12px;
-    max-width: 85%;
-    word-wrap: break-word;
+    padding: 8px 12px;
+    color: #333;
+    font-size: 15px;
   }
 
-  .user {
-    background: #ffe9c6;
-    align-self: flex-end;
+  /* เพิ่มโลโก้ร้านขนมด้านบนกล่อง */
+  .n8n-chat-header {
+    background-image: url('https://yourwebsite.com/logo.png'); /* ใส่ URL โลโก้ร้าน */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60px;
   }
-
-  .bot {
-    background: #f7f5f0;
-    border: 1px solid #e2d4b8;
-  }
-
-  #chatbot-input {
-    display: flex;
-    border-top: 1px solid #e2d4b8;
-  }
-
-  #chatbot-input input {
-    flex: 1;
-    border: none;
-    padding: 10px;
-    border-radius: 0 0 0 14px;
-    outline: none;
-  }
-
-  #chatbot-input button {
-    background: #d7b98e;
-    border: none;
-    color: #5a4228;
-    padding: 10px 14px;
-    border-radius: 0 0 14px 0;
-    cursor: pointer;
-  }
-
-  #chatbot-button {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: linear-gradient(135deg,#d7b98e,#f4e5c2);
-    color: #5a4228;
-    border: none;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    font-size: 28px;
-    transition: all 0.3s ease;
-    z-index: 9999;
-  }
-
-  #chatbot-button:hover { transform: scale(1.1); }
 </style>
 
-<!-- ปุ่มเปิดแชท -->
-<button id="chatbot-button">💬</button>
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-<!-- กล่องแชท -->
-<div id="chatbot-container">
-  <div id="chatbot-header">
-    🍰 Kanom Baan-Baan Chatbot
-    <span id="chatbot-close">✖</span>
-  </div>
-
-  <div id="chatbot-messages">
-    <div class="message bot">สวัสดีค่ะ ฉันคือผู้ช่วยขนมบ้านๆ มีอะไรให้ช่วยไหมคะ? 🧁</div>
-  </div>
-
-  <div id="chatbot-input">
-    <input type="text" id="user-input" placeholder="พิมพ์ข้อความ...">
-    <button id="send-btn">ส่ง</button>
-  </div>
-</div>
-
-<script>
-  const chatButton = document.getElementById('chatbot-button');
-  const chatContainer = document.getElementById('chatbot-container');
-  const chatClose = document.getElementById('chatbot-close');
-  const sendBtn = document.getElementById('send-btn');
-  const userInput = document.getElementById('user-input');
-  const chatMessages = document.getElementById('chatbot-messages');
-
-  chatButton.onclick = () => chatContainer.style.display = 'flex';
-  chatClose.onclick = () => chatContainer.style.display = 'none';
-
-  async function sendMessage() {
-    const text = userInput.value.trim();
-    if (!text) return;
-
-    // แสดงข้อความผู้ใช้
-    const userMsg = document.createElement('div');
-    userMsg.className = 'message user';
-    userMsg.textContent = text;
-    chatMessages.appendChild(userMsg);
-    userInput.value = '';
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // ส่งไปที่ n8n webhook
-    try {
-      const response = await fetch('https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
-      });
-      const data = await response.json();
-  }
-
-  sendBtn.onclick = sendMessage;
-  userInput.addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendMessage();
-  });
+	createChat({
+		webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat'
+	});
 </script>
 </body>
 </html>
