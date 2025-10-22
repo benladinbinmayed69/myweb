@@ -164,7 +164,6 @@
 </a> | 
     <p>โทร:0987654321</p>
   </footer>
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <style>
         /* 1. กำหนดตัวแปร CSS หลัก (บาง n8n Chat UI version อาจจะใช้) */
         :root {
@@ -231,7 +230,7 @@
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
         
         createChat({
-            webhookUrl: 'YOUR_PRODUCTION_WEBHOOK_URL',
+            webhookUrl: 'https://m1k3.app.n8n.cloud/webhook/9f52812f-beb0-49ee-ae4c-9016c203277b/chat',
             // ตัวเลือกเสริม: คุณสามารถกำหนดข้อความต้อนรับ, ไอคอน, หรือชื่อบอทได้ที่นี่
             config: {
                 // ตัวอย่าง: ถ้าคุณต้องการเปลี่ยนชื่อที่แสดงใน Header
